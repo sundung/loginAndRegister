@@ -9,6 +9,10 @@ let db = require('./db')
 
 // 引入用户模型
 let userModel = require('./model/userModel')
+
+// 引入ui路由器
+let uiRouter = require('./router/uiRouter')
+
 // 创建app服务器
 
 let app = express()
@@ -18,6 +22,9 @@ let app = express()
 db.then(() => {
   // 使用内置中间件处理post请求体参数
   app.use(express.urlencoded({ extended: true }))
+
+  // 使用ui路由器中间件
+  app.use(uiRouter)
 
   // 登录业务逻辑的路由
   app.post('/login', async (req, res) => {
@@ -98,15 +105,7 @@ db.then(() => {
 
   })
 
-  // 设置UI路由
-  // 登录UI路由
-  app.get('/login', (req, res) => {
-    res.sendFile(__dirname + '/public/login.html')
-  })
-  // 注册UI路由
-  app.get('/register', (req, res) => {
-    res.sendFile(__dirname + '/public/register.html')
-  })
+
 }).catch((err) => {
   console.log('数据库连接失败', err)
 })
