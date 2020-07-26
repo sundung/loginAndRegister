@@ -8,6 +8,7 @@
 </head>
 
 <body>
+  <div><span><%= errMsg.netWorkErr%></div>
   <form action="http://localhost:3000/register" method="post">
     邮箱: <input type="email" name="email"><span><%= errMsg.emailErr%></span><br /><br />
     昵称: <input type="text" name='nick_name'><span><%= errMsg.nickNameErr%></span><br /><br />

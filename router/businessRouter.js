@@ -110,7 +110,9 @@ router.post('/register', async (req, res) => {
     }
   } catch (err) {
     console.log(err)
-    res.send('网络不稳定,稍后重试')
+    // res.send('网络不稳定,稍后重试')
+    errMsg.netWorkErr = '网络不稳定,稍后重试'
+    res.render('register', { errMsg })
   }
 
 })
