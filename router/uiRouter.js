@@ -23,14 +23,17 @@ router.get('/login', (req, res) => {
   // res.sendFile(__dirname + '/public/login.html')
   // res.sendFile(path.resolve(__dirname, '../public/login.html'))
   // 使用ejs模板
-  res.render('login')
+  // 获取 传过来的邮箱账号
+  const { email } = req.query
+  res.render('login', { email })
 })
 // 注册UI路由
 router.get('/register', (req, res) => {
   // res.sendFile(__dirname + '/public/register.html')
   // res.sendFile(path.resolve(__dirname, '../public/register.html'))
   // 使用ejs模板
-  res.render('register')
+  // { errMsg } 将注册页面的错误信息对象携带给注册页面
+  res.render('register', { errMsg })
 })
 
 // 导出 ui路由
