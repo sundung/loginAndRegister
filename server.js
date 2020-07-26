@@ -17,6 +17,12 @@ let uiRouter = require('./router/uiRouter')
 
 let app = express()
 
+// 配置模板引擎
+app.set('view engine', 'ejs')
+
+// 配置模板的存放目录
+app.set('views', './view')
+
 // 服务器启动成功调用数据库(数据库只启动一次,服务器启动失败,则启动数据库无意义)
 // 数据库连接成功后,注册路由
 db.then(() => {

@@ -11,3 +11,12 @@
 
 
 ## v2.0 登录注册路由器版,将路由器从server.js 拆分出去
+
+## ejs模板引擎的使用
+  1. 下载  
+      npm i ejs
+  2. 配置模板引擎
+      app.set('view engine','ejs')
+  3.配置模板的存放目录
+      app.set('views','./view')
+  4. 在view 目录下创建模板文件
