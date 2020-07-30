@@ -37,6 +37,11 @@ router.get('/register', (req, res) => {
   res.render('register', { errMsg })
 })
 
+// 个人中心----UI路由
+router.get('/usercenter', (req, res) => {
+  // get 获取个人中心
+  res.render('userCenter')
+})
 // 导出 ui路由
 
 module.exports = router
