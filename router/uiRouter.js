@@ -14,6 +14,9 @@ let path = require('path')
 
 let router = new express.Router()
 
+// 引入用户模型
+let userModel = require('../model/userModel')
+
 // 引入 cookie-parser 模块
 let cookieParser = require('cookie-parser')
 
@@ -44,12 +47,28 @@ router.get('/register', (req, res) => {
 })
 
 // 个人中心----UI路由
-router.get('/usercenter', (req, res) => {
-  // 获取cookie
+router.get('/usercenter', async (req, res) => {
+  /* // 获取cookie
   const { nick_name } = req.cookies
   // get 获取个人中心
   if (nick_name) {
     res.render('userCenter', { nickName: nick_name })
+  } else {
+    // cookie 过期 重新跳转
+    res.redirect('/login')
+  } */
+
+  // 获取session
+  const { _id } = req.session
+  if (_id) {
+    // 从数据库中查找id
+    let result = await userModel.findOne({ _id })
+    if (result) {
+      res.render('userCenter', { nickName: result.nick_name })
+    } else {
+      console.log('用户非法修改cookie')
+      res.redirect('/login')
+    }
   } else {
     // cookie 过期 重新跳转
     res.redirect('/login')

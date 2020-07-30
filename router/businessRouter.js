@@ -45,9 +45,11 @@ router.post('/login', async (req, res) => {
     if (findResult) {
       // res.redirect('https://www.baidu.com')
       // 使用cookie携带昵称参数
-      res.cookie('nick_name', findResult.nick_name, { maxAge: 1000 * 20 })
+      // res.cookie('nick_name', findResult.nick_name, { maxAge: 1000 * 20 })
+      // 使用session
+      req.session._id = findResult._id
       // 登陆成功跳转到个人中心
-      res.redirect(`/usercenter?`)
+      res.redirect('/usercenter')
     } else {
       // res.send('邮箱密码错误,请重试')
       errMsg.loginErr = '邮箱或密码输入不正确,请重试'
