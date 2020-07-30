@@ -19,14 +19,25 @@ router.post('/login', async (req, res) => {
   // 2.验证用户输入的字段
   const emailReg = /^[a-zA-Z0-9_]{4,16}@[a-zA-Z0-9]{2,16}\.com$/
   const passwordReg = /^[a-zA-Z0-9_#]{4,16}$/
+
+  // 定义错误对象
+  const errMsg = {}
+
   // 使用正则进行校验
   if (!emailReg.test(email)) {
-    res.send('邮箱输入不合法!要求邮箱用户名4-16位包含特殊字符_')
-    // 不return 会导致代码继续向下执行,后台服务器会在控制台报错
-    return
+    // res.send('邮箱输入不合法!要求邮箱用户名4-16位包含特殊字符_')
+    // // 不return 会导致代码继续向下执行,后台服务器会在控制台报错
+    // return
+    errMsg.emailErr = '邮箱输入不合法!要求邮箱用户名4-16位包含特殊字符_'
   }
   if (!passwordReg.test(password)) {
-    res.send('密码设置要求为4-16位字符')
+    // res.send('密码设置要求为4-16位字符')
+    // return
+    errMsg.passwordErr = '密码设置要求为4-16位字符'
+  }
+  // 判断错误对象是否为空
+  if (JSON.stringify(errMsg) !== '{}') {
+    res.render('login', { errMsg })
     return
   }
   try {
@@ -34,10 +45,14 @@ router.post('/login', async (req, res) => {
     if (findResult) {
       res.redirect('https://www.baidu.com')
     } else {
-      res.send('邮箱密码错误,请重试')
+      // res.send('邮箱密码错误,请重试')
+      errMsg.loginErr = '邮箱或密码输入不正确,请重试'
+      res.render('login', { errMsg })
     }
   } catch (error) {
     console.log(error)
+    errMsg.networkErr = '网络异常,请重试'
+    res.render('login', { errMsg })
   }
 })
 

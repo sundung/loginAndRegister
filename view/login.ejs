@@ -8,14 +8,16 @@
 </head>
 
 <body>
+  <div><%=errMsg.networkErr%></div>
+  <div><%=errMsg.loginErr%></div>
   <form action="http://localhost:3000/login" method="post">
     <label for="">
-      邮箱:<input type="email" name='email' value='<%=email%>'>
+      邮箱:<input type="email" name='email' value='<%=errMsg.email%>'> <span><%=errMsg.emailErr%></span>
     </label>
     <br />
     <br />
     <label for="">
-      密码:<input type="password" name='password'>
+      密码:<input type="password" name='password'> <span><%=errMsg.passwordErr%></span>
     </label>
     <br />
     <br />

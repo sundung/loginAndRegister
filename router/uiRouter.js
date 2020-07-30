@@ -25,7 +25,8 @@ router.get('/login', (req, res) => {
   // 使用ejs模板
   // 获取 传过来的邮箱账号
   const { email } = req.query
-  res.render('login', { email })
+  // 在错误对象中携带email
+  res.render('login', { errMsg: { email } })
 })
 // 注册UI路由
 router.get('/register', (req, res) => {
