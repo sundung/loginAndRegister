@@ -10,17 +10,23 @@ let express = require('express')
 // 引入 path模块 处理路径问题
 
 let path = require('path')
-
 // 创建路由器
 
 let router = new express.Router()
+
+// 引入 cookie-parser 模块
+let cookieParser = require('cookie-parser')
+
+// 注册cookieParser
+router.use(cookieParser())
+
 
 // 将ui路由写到这里
 
 // 设置UI路由
 // 登录UI路由
 router.get('/login', (req, res) => {
-  // res.sendFile(__dirname + '/public/login.html')
+  // res.sendFile(__dirname + '/public/login.html') 路径有问题
   // res.sendFile(path.resolve(__dirname, '../public/login.html'))
   // 使用ejs模板
   // 获取 传过来的邮箱账号
@@ -39,8 +45,16 @@ router.get('/register', (req, res) => {
 
 // 个人中心----UI路由
 router.get('/usercenter', (req, res) => {
+  // 获取cookie
+  const { nick_name } = req.cookies
   // get 获取个人中心
-  res.render('userCenter')
+  if (nick_name) {
+    res.render('userCenter', { nickName: nick_name })
+  } else {
+    // cookie 过期 重新跳转
+    res.redirect('/login')
+  }
+
 })
 // 导出 ui路由
 

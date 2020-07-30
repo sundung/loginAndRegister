@@ -45,7 +45,7 @@ router.post('/login', async (req, res) => {
     if (findResult) {
       // res.redirect('https://www.baidu.com')
       // 使用cookie携带昵称参数
-      // res.cookie('nick_name', findResult.nick_name, { maxAge: 1000 * 360 * 24 })
+      res.cookie('nick_name', findResult.nick_name, { maxAge: 1000 * 20 })
       // 登陆成功跳转到个人中心
       res.redirect(`/usercenter?`)
     } else {
