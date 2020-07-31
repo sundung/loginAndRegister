@@ -43,7 +43,7 @@ router.get('/register', (req, res) => {
   // res.sendFile(path.resolve(__dirname, '../public/register.html'))
   // 使用ejs模板
   // { errMsg } 将注册页面的错误信息对象携带给注册页面
-  res.render('register', { errMsg })
+  res.render('register', { errMsg: {} })
 })
 
 // 个人中心----UI路由
